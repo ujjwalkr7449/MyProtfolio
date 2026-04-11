@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ujjwalkr7449.github.io/sitemap.xml
+Sitemap: https://ujjwalllkumar.netlify.app/sitemap.xml
