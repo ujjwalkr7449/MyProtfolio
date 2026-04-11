@@ -1,33 +1,48 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+
 const TextChange = () => {
-  const texts = ["Hi, I'm Ujjwal", "Hi,I'm Python Learner ", "Hi, I'm JS Learner ", "Hi, I'm React Learner","hi I'am MERN Stack Developer","Hi, I'm Ml Learner"];
-  const [currenText, setCurrentText] = useState("");
-  const [endValue, setendValue] = useState(true);
-  const [isForward, setIsForward] = useState(true);
+  const texts = useMemo(() => [
+    "Full Stack Developer",
+    "Generative AI Engineer",
+    "Agentic AI Developer",
+    "Frontend Specialist",
+    "Backend Architect",
+  ], []);
+
+  const [currentText, setCurrentText] = useState("");
   const [index, setIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentText(texts[index].substring(0, endValue));
-      if (isForward) {
-        setendValue((prev) => prev + 1);
-      } else {
-        setendValue((prev) => prev - 1);
-      }
-      if (endValue > texts[index].length + 10) {
-        setIsForward(false);
-      }
-      if (endValue < 2.1) {
-        setIsForward(true);
-        setIndex((prev) => (prev + 1) % texts.length); // This is the magic line!
-      }
-    }, 50);
+    const fullText = texts[index];
+    let timeout;
 
-    return () => clearInterval(intervalId);
-  }, [endValue, isForward, index, texts]);
+    if (!isDeleting && charIndex < fullText.length) {
+      timeout = setTimeout(() => {
+        setCurrentText(fullText.substring(0, charIndex + 1));
+        setCharIndex(charIndex + 1);
+      }, 80);
+    } else if (!isDeleting && charIndex === fullText.length) {
+      timeout = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && charIndex > 0) {
+      timeout = setTimeout(() => {
+        setCurrentText(fullText.substring(0, charIndex - 1));
+        setCharIndex(charIndex - 1);
+      }, 40);
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setIndex((prev) => (prev + 1) % texts.length);
+    }
 
-  return <div className="transition ease duration-300">{currenText}</div>;
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, index, texts]);
+
+  return (
+    <span className="streaming-cursor" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+      {currentText}
+    </span>
+  );
 };
 
 export default TextChange;

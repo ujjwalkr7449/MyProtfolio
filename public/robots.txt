@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ujjwalkr7449.github.io/sitemap.xml
