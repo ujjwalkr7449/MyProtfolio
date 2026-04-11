@@ -222,7 +222,7 @@ const Home = () => {
             />
             <div className="gradient-border" style={{ borderRadius: "50%" }}>
               <img
-                src="/src/assets/Uk.jpg"
+                src="/src/assets/ujjwal.png"
                 alt="Ujjwal Kumar"
                 style={{
                   width: "clamp(200px, 25vw, 300px)",
