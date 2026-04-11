@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaLocationDot, FaInstagram } from "react-icons/fa6";
 import TextChange from "../TextChange";
+import profileImg from "../../assets/ujjwal.png";
 
 const socialLinks = [
   { icon: <FaGithub size={18} />, href: "https://github.com/ujjwalkr7449", label: "GitHub" },
@@ -222,7 +223,7 @@ const Home = () => {
             />
             <div className="gradient-border" style={{ borderRadius: "50%" }}>
               <img
-                src="/src/assets/ujjwal.png"
+                src={profileImg}
                 alt="Ujjwal Kumar"
                 style={{
                   width: "clamp(200px, 25vw, 300px)",
